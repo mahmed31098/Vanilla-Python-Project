@@ -1,1 +1,66 @@
+Assignment Saule (2 for me)
+Implement a small library for doing simple data analytics operations and use it to create a simple
+analytics report on a real dataset.
+All the functions must be written in vanilla python with no additional libraries
+In particular, you have to provide two files:
+1. A python file implementing the data analytics library. You have to implement at least the
+following functions (in case you need you can create additional functions or reuse the ones
+shown during the lectures):
+read_column : this function takes as input the path of a csv file and the name of a column
+and returns a list of all the elements of that column.
+E.G.
+Given the following csv file:
+Calling read_column for col1 will return the list [a,d]
+intersec : this function takes as input two lists and returns a new list with only the
+elements appearing in both the two lists. The elements in the output list must not be
+repeated.
+E.G.
+Given the following lists:
+The function will return the following list (the order of the elements can be different):
+median : this function takes as input a list of numbers and prints the median (you can avoid
+ordering the numbers).
+If the list has size , the median is defined as:
+if is odd
+if is even
+E.G.
+Given the following list:
+col1,col2,col3
+a,b,c
+d,e,f
+[apple,banana,banana,apple,apple,orange]
+[banana, melon, apple, pineapple]
+[apple, banana]
+The function will return 56
 
+
+Code:
+
+def read_column(file_path, column_name):
+    column = []
+    with open(file_path) as f:
+        lines = f.readlines()
+        header = lines[0].strip().split(',')
+        index = header.index(column_name)
+        for line in lines[1:]:
+            column.append(line.strip().split(',')[index])
+    return column
+
+
+def intersec(list1, list2):
+    intersec_list = []
+    for element in list1:
+        if element in list2 and element not in intersec_list:
+            intersec_list.append(element)
+    return intersec_list
+
+
+def median(numbers):
+    n = len(numbers)
+    if n == 0:
+        print("Error: empty list")
+        return
+    sorted_numbers = sorted(numbers)
+    if n % 2 == 1:
+        print(sorted_numbers[n//2])
+    else:
+        print((sorted_numbers[n//2-1] + sorted_numbers[n//2])/2)
